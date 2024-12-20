@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #00B4DB 0%, #4B6CB7 100%);
+            padding: 20px;
+        }
+
+        .back-button {
+            background: #7B2FBF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #9340DD;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
+        .cipher-title {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 600;
+            margin: 20px 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .cipher-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #4B6CB7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            padding: 12px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .encrypt-btn {
+            background: #00B4DB;
+        }
+
+        .encrypt-btn:hover {
+            background: #0095b6;
+            transform: translateY(-2px);
+        }
+
+        .decrypt-btn {
+            background: #7B2FBF;
+        }
+
+        .decrypt-btn:hover {
+            background: #9340DD;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            min-height: 60px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            border: 2px solid #e1e1e1;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="main.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Algorithm Selection
+        </a>
+
+        <h1 class="cipher-title">
+            <i class="fas fa-lock"></i>
+            <span id="cipher-name">Caesar Cipher</span>
+            <i class="fas fa-key"></i>
+        </h1>
+
+        <div class="cipher-card">
+            <div class="input-group">
+                <label class="input-label">
+                    <i class="fas fa-key"></i>
+                    Key
+                </label>
+                <input type="number" id="key1" class="input-field" required>
+            </div>
+
+            <div class="input-group" id="key2-container" style="display: none;">
+                <label class="input-label">
+                    <i class="fas fa-key"></i>
+                    Second Key (b)
+                </label>
+                <input type="number" id="key2" class="input-field">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">
+                    <i class="fas fa-envelope"></i>
+                    Message
+                </label>
+                <textarea id="message" class="input-field" rows="4" required></textarea>
+            </div>
+
+            <div class="button-group">
+                <button onclick="handleEncrypt()" class="action-button encrypt-btn">
+                    <i class="fas fa-lock"></i>
+                    Encrypt
+                </button>
+                <button onclick="handleDecrypt()" class="action-button decrypt-btn">
+                    <i class="fas fa-unlock"></i>
+                    Decrypt
+                </button>
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get cipher type from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const cipherType = urlParams.get('type') || 'caesar';
+        
+        // Update page title based on cipher type
+        document.getElementById('cipher-name').textContent = 
+            cipherType.charAt(0).toUpperCase() + cipherType.slice(1) + ' Cipher';
+        
+        // Show/hide second key input for affine cipher
+        document.getElementById('key2-container').style.display = 
+            cipherType === 'affine' ? 'block' : 'none';
+
+        // Rest of your cipher implementation code remains the same
+        const cipherFunctions = {
+            caesar: {
+                encrypt: (text, key) => {
+                    key = parseInt(key);
+                    return text.split('').map(char => {
+                        if (char.match(/[a-zA-Z]/)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base + key) % 26) + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                },
+                decrypt: (text, key) => {
+                    return cipherFunctions.caesar.encrypt(text, -key);
+                }
+            },
+            
+            multiplicative: {
+                validateKey: (key) => {
+                    key = parseInt(key);
+                    const validKeys = [1, 3, 5, 7, 11, 15, 17, 19, 21, 23, 25];
+                    if (!validKeys.includes(key)) {
+                        throw new Error(`Invalid key ${key}. Key must be coprime with 26. Valid keys are: ${validKeys.join(', ')}`);
+                    }
+                    return key;
+                },
+                encrypt: (text, key) => {
+                    key = cipherFunctions.multiplicative.validateKey(key);
+                    return text.split('').map(char => {
+                        if (char.match(/[a-zA-Z]/)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base) * key) % 26 + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                },
+                decrypt: (text, key) => {
+                    key = cipherFunctions.multiplicative.validateKey(key);
+                    const findInverse = (a) => {
+                        for (let x = 1; x < 26; x++) {
+                            if ((a * x) % 26 === 1) return x;
+                        }
+                        throw new Error('No multiplicative inverse exists');
+                    };
+                    const inverse = findInverse(key);
+                    return text.split('').map(char => {
+                        if (char.match(/[a-zA-Z]/)) {
+                            const code = char.charCodeAt(0);
+                            const isUpperCase = code >= 65 && code <= 90;
+                            const base = isUpperCase ? 65 : 97;
+                            return String.fromCharCode(
+                                (((code - base) * inverse) % 26 + 26) % 26 + base
+                            );
+                        }
+                        return char;
+                    }).join('');
+                }
+            },
+
+            affine: {
+                encrypt: (text, a, b) => {
+                    let encryptedText = "";
+                    for (let char of text) {
+                        if (/[a-zA-Z]/.test(char)) {
+                            const isUpperCase = char === char.toUpperCase();
+                            const charCodeBase = isUpperCase ? 65 : 97;
+                            const encryptedChar = String.fromCharCode(
+                                ((a * (char.charCodeAt(0) - charCodeBase) + b) % 26) + charCodeBase
+                            );
+                            encryptedText += encryptedChar;
+                        } else {
+                            encryptedText += char;
+                        }
+                    }
+                    return encryptedText;
+                },
+                decrypt: (text, a, b) => {
+                    const m = 26;
+                    function modInverse(a, m) {
+                        for (let x = 1; x < m; x++) {
+                            if ((a * x) % m === 1) {
+                                return x;
+                            }
+                        }
+                        return -1;
+                    }
+                    const aInv = modInverse(a, m);
+                    if (aInv === -1) {
+                        throw new Error("Invalid key for decryption. 'a' must be coprime with 26.");
+                    }
+                    let decryptedText = "";
+                    for (let char of text) {
+                        if (/[a-zA-Z]/.test(char)) {
+                            const isUpperCase = char === char.toUpperCase();
+                            const charCodeBase = isUpperCase ? 65 : 97;
+                            const decryptedChar = String.fromCharCode(
+                                ((aInv * ((char.charCodeAt(0) - charCodeBase) - b + 26)) % 26) + charCodeBase
+                            );
+                            decryptedText += decryptedChar;
+                        } else {
+                            decryptedText += char;
+                        }
+                    }
+                    return decryptedText;
+                }
+            }
+        };
+
+        function handleCipherOperation(operation) {
+            const message = document.getElementById('message').value;
+            const key1 = parseInt(document.getElementById('key1').value, 10);
+            const key2 = parseInt(document.getElementById('key2').value, 10);
+
+            try {
+                let result;
+                if (cipherType === 'affine') {
+                    result = cipherFunctions[cipherType][operation](message, key1, key2);
+                } else {
+                    result = cipherFunctions[cipherType][operation](message, key1);
+                }
+                document.getElementById('result').textContent = result;
+            } catch (error) {
+                document.getElementById('result').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function handleEncrypt() {
+            handleCipherOperation('encrypt');
+        }
+
+        function handleDecrypt() {
+            handleCipherOperation('decrypt');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Cipher Descriptions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: black;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .nav-btn.explore-btn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
+        }
+
+        .nav-btn.logout-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5253);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(238, 82, 83, 0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cipher-description {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .cipher-description:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .cipher-description h3 {
+            color: #2575fc;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cipher-description p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .explore-button {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
+        }
+
+        .explore-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+            color: white;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .icon-float {
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <span class="navbar-brand text-white fw-bold">
+                <i class="fas fa-shield-alt me-2"></i>Cipher Playground
+            </span>
+            <div>
+                <a href="main.html" class="btn nav-btn explore-btn">
+                    <i class="fas fa-tools me-2"></i>Tools
+                </a>
+                <a href="index.html" class="btn nav-btn logout-btn" onclick="return confirm('Are you sure you want to logout?')">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-container">
+        <div class="text-center mb-5">
+            <h1 class="main-title">
+                <span class="icon-float"><i class="fas fa-book me-3"></i></span>
+                Welcome to the Cipher Playground
+                <span class="icon-float"><i class="fas fa-graduation-cap ms-3"></i></span>
+            </h1>
+            <p class="subtitle">Learn how different ciphers work before exploring the tools!</p>
+        </div>
+        
+        <div class="row">
+            <!-- Caesar Cipher -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cipher-description">
+                    <h3>
+                        <i class="fas fa-exchange-alt"></i>
+                        Caesar Cipher
+                    </h3>
+                    <p>
+                        The Caesar Cipher is a simple substitution cipher that shifts each letter of the plaintext 
+                        by a fixed number of positions down the alphabet. For example, a shift of 3 turns A into D, 
+                        B into E, and so on.
+                    </p>
+                </div>
+            </div>
+        
+            <!-- Multiplicative Cipher -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cipher-description">
+                    <h3>
+                        <i class="fas fa-times-circle"></i>
+                        Multiplicative Cipher
+                    </h3>
+                    <p>
+                        The Multiplicative Cipher multiplies each letter's position in the alphabet by a fixed key. 
+                        Decryption requires finding the modular multiplicative inverse of the key.
+                    </p>
+                </div>
+            </div>
+        
+            <!-- Affine Cipher -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cipher-description">
+                    <h3>
+                        <i class="fas fa-random"></i>
+                        Affine Cipher
+                    </h3>
+                    <p>
+                        The Affine Cipher combines two operations: multiplication and addition. A letter's position 
+                        is first multiplied by a key, then a constant value is added. Decryption involves the inverse 
+                        of these operations.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="text-center">
+            <a href="main.html" class="btn explore-button">
+                <i class="fas fa-rocket me-2"></i>Explore Ciphers
+            </a>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <p class="mb-2">© 2024 Cyber Security Playground | All Rights Reserved</p>
+        <p>Made By Reday, Kajol & Tamanna</p>
+    </footer>
+</body>
+</html>

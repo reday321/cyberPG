@@ -1,0 +1,239 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Encryption Playground</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    .nav-btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      margin: 0 0.5rem;
+    }
+
+    .nav-btn.home-btn {
+      background: linear-gradient(45deg, #00b4db, #0083b0);
+      border: none;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 180, 219, 0.2);
+    }
+
+    .nav-btn.logout-btn {
+      background: linear-gradient(45deg, #ff6b6b, #ee5253);
+      border: none;
+      color: white;
+      box-shadow: 0 4px 15px rgba(238, 82, 83, 0.2);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    .cipher-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      backdrop-filter: blur(4px);
+      padding: 2rem;
+      transition: all 0.4s ease;
+      height: 100%;
+    }
+
+    .cipher-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
+    }
+
+    .cipher-card .card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #333, #666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+    }
+
+    .cipher-card .card-text {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .cipher-btn {
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .cipher-btn:hover {
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 0;
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+
+    .icon-container {
+      display: inline-block;
+      margin: 0 0.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .section-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 3rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(45deg, #00b4db, #0083b0);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <span class="navbar-brand text-white fw-bold">
+        <i class="fas fa-shield-alt me-2"></i>Cipher Playground
+      </span>
+      <div>
+        <a href="home.html" class="btn nav-btn home-btn">
+          <i class="fas fa-home me-2"></i>Home
+        </a>
+        <a href="index.html" class="btn nav-btn logout-btn" onclick="return confirm('Are you sure you want to logout?')">
+          <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5 pt-5">
+    <div class="text-center mb-5">
+      <h1 class="main-title">
+        <div class="icon-container"><i class="fas fa-lock me-3"></i></div>
+        Cyber Security Encryption Playground
+        <div class="icon-container"><i class="fas fa-key ms-3"></i></div>
+      </h1>
+    </div>
+
+    <div class="row justify-content-center g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="cipher-card">
+          <div class="card-body text-center">
+            <i class="fas fa-exchange-alt fa-3x mb-4" style="color: #6a11cb;"></i>
+            <h3 class="card-title">Caesar Cipher</h3>
+            <p class="card-text">A simple substitution cipher that shifts letters by a fixed amount.</p>
+            <a href="cipher.html?type=caesar" class="btn cipher-btn w-100">
+              <i class="fas fa-play me-2"></i>Use Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="cipher-card">
+          <div class="card-body text-center">
+            <i class="fas fa-times-circle fa-3x mb-4" style="color: #ee7752;"></i>
+            <h3 class="card-title">Multiplicative</h3>
+            <p class="card-text">Encrypts by multiplying each letter's position with a key value.</p>
+            <a href="cipher.html?type=multiplicative" class="btn cipher-btn w-100">
+              <i class="fas fa-play me-2"></i>Use Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="cipher-card">
+          <div class="card-body text-center">
+            <i class="fas fa-random fa-3x mb-4" style="color: #23d5ab;"></i>
+            <h3 class="card-title">Affine Cipher</h3>
+            <p class="card-text">Combines multiplication and shift operations for encryption.</p>
+            <a href="cipher.html?type=affine" class="btn cipher-btn w-100">
+              <i class="fas fa-play me-2"></i>Use Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-5">
+    <div class="container">
+      <div class="text-center">
+        <p class="mb-2">© 2024 Cyber Security Playground | All Rights Reserved</p>
+        <p>Made By Reday, Kajol & Tamanna</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
